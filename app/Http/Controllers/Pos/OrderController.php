@@ -7,6 +7,7 @@ use App\Http\Requests\Order\OrderStoreRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -119,4 +120,20 @@ class OrderController extends Controller
     {
         $item->decrement('quantity', $item->pivot->quantity);
     }
+
+
+    public function receipt(Order $order)
+{
+    // Load related data
+    $order->load(['customer', 'items.product']);
+
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('orders.receipt', ['order' => $order]);
+
+    // Set thermal printer size (80mm width)
+    $pdf->setPaper([0, 0, 226.77, 841.89], 'portrait');
+
+    return $pdf->stream("order-receipt-{$order->id}.pdf");
+    // For direct download use ->download("order-receipt-{$order->id}.pdf");
+}
 }

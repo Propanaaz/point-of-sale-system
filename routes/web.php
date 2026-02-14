@@ -38,6 +38,10 @@ Route::prefix('admin')->middleware(['auth', 'locale'])->group(function (): void 
     Route::get('/purchases/{purchase}/receipt', [PurchaseController::class, 'receipt'])->name('purchases.receipt');
     Route::resource('purchases', PurchaseController::class);
 
+Route::get('/orders/{order}/receipt', [OrderController::class, 'receipt'])
+    ->name('orders.receipt');
+
+
     // Purchase Cart API
     Route::prefix('purchase-cart')->name('purchase-cart.')->group(function (): void {
         Route::get('/', [PurchaseCartController::class, 'index'])->name('index');

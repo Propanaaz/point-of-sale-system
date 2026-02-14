@@ -87,6 +87,9 @@
                                 </button>
                             @endif
                         </td>
+                         <td><a href="{{ route('orders.receipt', $order->id) }}" target="_blank" class="btn btn-sm btn-success" title="Print Receipt">
+    <i class="fas fa-print"></i>
+</a></td>
                     </tr>
                 @endforeach
                 </tbody>
