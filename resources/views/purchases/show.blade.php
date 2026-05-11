@@ -152,10 +152,10 @@
                                     <tr>
                                         <td>
                                             @if($item->product)
-                                                <img src="{{ $item->product->image_url }}"
-                                                     alt="{{ $item->product->name }}"
-                                                     class="img-thumbnail"
-                                                     style="width: 50px; height: 50px; object-fit: cover;">
+                                                    <img src="{{ asset($item->product->image) }}"
+                                                        alt="{{ $item->product->name }}"
+                                                        class="img-thumbnail"
+                                                        style="width: 50px; height: 50px; object-fit: cover;">
                                             @else
                                                 <div class="bg-secondary" style="width: 50px; height: 50px;"></div>
                                             @endif

@@ -14,12 +14,37 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
+
+
+
+
 Route::get('/', fn(): Redirector|RedirectResponse => redirect('/admin'));
 
 Auth::routes();
 
 Route::prefix('admin')->middleware(['auth', 'locale'])->group(function (): void {
-    Route::get('/', HomeController::class)->name('home');
+
+
+// csv file route
+
+// Route::resource('products', ProductController::class);
+Route::get('products/template/download', [ProductController::class, 'downloadTemplate'])
+    ->name('products.template.download');
+Route::get('products/import/csv', [ProductController::class, 'showImportForm'])
+    ->name('products.import.form');
+
+Route::post('products/import/csv', [ProductController::class, 'importCsv'])
+    ->name('products.import');
+
+
+
+
+
+Route::get('/', HomeController::class)->name('home');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::resource('products', ProductController::class);
