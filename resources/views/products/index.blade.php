@@ -3,7 +3,17 @@
 @section('title', __('product.Product_List'))
 @section('content-header', __('product.Product_List'))
 @section('content-actions')
-<a href="{{route('products.create')}}" class="btn btn-primary">{{ __('product.Create_Product') }}</a>
+
+{{-- <a href="{{route('products.create')}}" class="btn btn-primary">{{ __('product.Create_Product') }}</a> --}}
+<div class="d-flex gap-2">
+    <a href="{{route('products.create')}}" class="btn btn-primary">
+        {{ __('product.Create_Product') }}
+    </a>
+
+    <a href="{{route('products.import.form')}}" class="btn btn-success">
+        Import CSV
+    </a>
+</div>
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -31,7 +41,11 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
-                    <td><img class="product-img" src="{{ Storage::url($product->image) }}" alt=""></td>
+                    <td>
+                        <img class="product-img"
+                            src="{{ asset($product->image) }}"
+                            width="80">
+                    </td>
                     <td>{{$product->barcode}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->quantity}}</td>
